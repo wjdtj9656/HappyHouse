@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.happyhouse.mapper.InterestMapper">
+
+	<insert id="insertInterest">
+		insert into interest(apartname, address, userid, date, x, y, price)
+		values (#{apartname}, #{address}, #{userid}, #{date}, #{x}, #{y}, #{price})
+	</insert>
+	
+	<select id="interestList" resultType="Interest">
+		select interestno, apartname, address, userid, date, x, y, price
+		from interest
+		where userid = #{userid}
+	</select>
+	
+	<delete id="deleteInterest">
+		delete from interest
+		where interestno = #{interestno}
+	</delete>
+</mapper>

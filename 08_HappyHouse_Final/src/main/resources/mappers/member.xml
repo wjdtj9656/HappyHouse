@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssafy.happyhouse.mapper.MemberMapper">
+	
+	<!-- 로그인 -->
+	<select id="login" parameterType="Map" resultType="Member">
+		select id, username, userclass, email
+		from member
+		where id = #{id} and password = #{password}
+	</select>
+	
+	<!-- 아이디 중복 검사 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(id)
+		from member
+		where id = #{checkId}
+	</select>
+	
+	<insert id="insertMember">
+		insert into member(id, userclass, password, username, email)
+		values(#{id}, 1, #{password}, #{username}, #{email})
+	</insert>
+	
+	
+	<!-- 회원 상세정보 조회 -->
+	<select id="selectMember" resultType="Member">
+		select id, username, password, userclass, email
+		from member
+		where id = #{id}
+	</select>
+	
+	
+	<update id="updateMember">
+		update member
+		<set>
+			<if test="username != null">username=#{username},</if>
+			<if test="password != null">password=#{password},</if>
+      		<if test="email != null">email=#{email},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteMember">
+		delete from member
+		where id = #{id}
+	</delete>
+</mapper>

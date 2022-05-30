@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssafy.happyhouse.mapper.CommentMapper">
+
+	<select id="selectAllComments" resultType="Comment">
+		select commentno, writer, userid, content, regdate
+		from comment
+		where noticeno = #{noticeno}
+		order by commentno desc
+	</select>
+	
+	<insert id="insertComment">
+		insert into comment(noticeno, writer, userid, content, regdate)
+		values (#{noticeno}, #{writer}, #{userid}, #{content}, now())
+	</insert>
+	
+	<update id="updateComment">
+		update comment
+		<set>
+			<if test="content != null">content = #{content}</if>
+		</set>
+		where commentno = #{commentno}
+	</update>
+	
+	<delete id="deleteComment">
+		delete from comment
+		where commentno = #{commentno}
+	</delete>
+</mapper>
